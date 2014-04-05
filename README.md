@@ -6,11 +6,13 @@ A simple D3D8 wrapper and SH2 patcher, with source code included.
 Thanks to Michael Koch for his open source DX8 wrapper
 (http://www.codeguru.com/cpp/g-m/directx/directx8/article.php/c11453/Intercept-Calls-to-DirectX-with-a-Proxy-DLL.htm)
 
--------
+
 Install
 -------
 Visual C++ 2013 redistributable is required, download vcredist_x86.exe from
+
 http://www.microsoft.com/en-gb/download/details.aspx?id=40784
+
 
 1. Backup your sh2pc.exe file
 2. Remove/uninstall any other SH2 modern compatibility fixes
@@ -21,35 +23,43 @@ http://www.microsoft.com/en-gb/download/details.aspx?id=40784
 
 Again, make sure any other compatibility fixes are removed to make sure they don't collide with this patcher!
 
+
 If you have problems with SH2 changing your screen resolution to 640x480 when it first opens try running the following as admin
+
 sdbinst -u -g {d2026473-6410-4150-9291-523b55495056}
 
+
 If you installed any other custom SDB compatibility files you should also remove them with
+
 sdbinst -u pathtoSDBfile
 
--------
+
 Usage
 -------
 Easy mode: edit the ini file to your settings and run sh2pc.exe
 
+
 Hard mode: You can now add parameters to the exe
 
--width=xxxx / -w=xxxx		change screen width to xxxx
--height=xxxx / -h=xxxx		change screen height to xxxx
--windowed / -window / -w	force game to run in window
--fullscreen / -fs / -f		force game to run fullscreen
--borderless / -bl		force game to run borderless (only takes effect if game is windowed)
--borders / -b			force game to run with borders (only takes effect if game is windowed)
--x=xxxx				set window x position
--y=xxxx				set window y position
+- -width=xxxx / -w=xxxx		change screen width to xxxx
+- -height=xxxx / -h=xxxx		change screen height to xxxx
+- -windowed / -window / -w	force game to run in window
+- -fullscreen / -fs / -f		force game to run fullscreen
+- -borderless / -bl		force game to run borderless (only takes effect if game is windowed)
+- -borders / -b			force game to run with borders (only takes effect if game is windowed)
+- -x=xxxx				set window x position
+- -y=xxxx				set window y position
 
 To use them just run sh2pc.exe with the parameters you want, e.g.
+
 sh2pc.exe -w=2560 -h=1440 -f
+
 To run the game in fullscreen 2560x1440
+
 
 If no ini is found it'll run the game as default with all the fixes listed below enabled, parameters will still work fine though
 
--------
+
 Fixes
 -------
 Allows:
@@ -57,7 +67,7 @@ Allows:
 - Windowed mode
 - Borderless window
 - Window positioning
-- Executable Arguments/Parameters
+- Executable Arguments/parameters
 
 Fixes:
 - Disables Safe Mode
