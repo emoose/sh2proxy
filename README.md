@@ -9,6 +9,9 @@ Thanks to Michael Koch for his open source DX8 wrapper
 
 Install
 -------
+
+Binary download is available at http://www.datafilehost.com/d/084a2014 includes sh2proxy.ini, precompiled d3d8.dll and a matching sh2pc.exe for sh2proxy.
+
 Visual C++ 2013 redistributable is required, download vcredist_x86.exe from
 
 http://www.microsoft.com/en-gb/download/details.aspx?id=40784
@@ -76,3 +79,50 @@ Fixes:
 - Create local.fix AA fix file if doesn't exist (thanks to angular graphics for the fix!)
 
 All of the above can be configured in sh2proxy.ini
+
+Example INI
+-------
+<pre>
+[Video]
+# width of screen buffer (default 1280)
+Width = 2560
+# height of screen buffer (default 720)
+Height = 1440
+# set to 1 to make the game run in a window (default 0)
+Windowed = 1
+
+[Window]
+# set to 1 to make the window borderless (only takes effect if windowed is enabled)
+# borderless windows can't be moved normally, so set the position below
+# (default 0)
+Borderless = 1
+
+# works with bordered windows too
+# (default 0)
+PositionX = 0
+PositionY = 0
+
+[Patches]
+# forces SH2 to use one core (default 1)
+SingleCoreAffinity = 1
+
+# disable SH2 gfx safe mode (default 1)
+DisableSafeMode = 1
+
+# improve speed of transitions (opening up inventory/map/etc) (default 1)
+FastTransitions = 1
+
+# transition width/height (only used internally)
+# the game normally uses your screen res, which slows transitions a lot (3-4s transition time for no reason at all!)
+# if set to 0 it'll use half your screen res
+# in case you still experience transition lag try setting this to a sensible value, 1280x720 is a good choice
+# (default 0)
+FastTransitionWidth = 800
+FastTransitionHeight = 600
+
+[Extra]
+# automatically create local.fix file with angular graphics local.fix file
+# should fix AA on most systems
+# (default 1)
+CreateLocalFix = 0
+</pre>
