@@ -10,7 +10,7 @@ Thanks to Michael Koch for his open source DX8 wrapper
 Install
 -------
 
-Binary download is available at http://www.datafilehost.com/d/084a2014 includes sh2proxy.ini, precompiled d3d8.dll and a matching sh2pc.exe for sh2proxy.
+Binary download is available in the releases section (https://github.com/emoose/sh2proxy/releases), includes sh2proxy.ini, precompiled d3d8.dll and a matching sh2pc.exe for sh2proxy.
 
 Visual C++ 2013 redistributable is required, download vcredist_x86.exe from
 
