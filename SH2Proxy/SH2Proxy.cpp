@@ -4,9 +4,7 @@
 #include "SH2Patcher.h"
 
 // global variables
-#pragma data_seg (".d3d8_shared")
-myIDirect3DDevice8* gl_pmyIDirect3DDevice8;
-myIDirect3D8*       gl_pmyIDirect3D8;
+#pragma data_seg (".dinput8_shared")
 HINSTANCE           gl_hOriginalDll;
 HINSTANCE           gl_hThisInstance;
 SH2Patcher			gl_patcher;
@@ -29,32 +27,28 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserv
 	return TRUE;
 }
 
-// Exported function (faking d3d8.dll's one-and-only export)
-IDirect3D8* WINAPI Direct3DCreate8(UINT SDKVersion)
+// Exported function
+HRESULT WINAPI DirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID * ppvOut, LPUNKNOWN punkOuter)
 {
-	if (!gl_hOriginalDll) LoadOriginalDll(); // looking for the "right d3d8.dll"
+	if (!gl_hOriginalDll) LoadOriginalDll(); // looking for the right dll
 
 	// Hooking IDirect3D Object from Original Library
-	typedef IDirect3D8 *(WINAPI* D3D8_Type)(UINT SDKVersion);
-	D3D8_Type D3DCreate8_fn = (D3D8_Type)GetProcAddress(gl_hOriginalDll, "Direct3DCreate8");
+	typedef HRESULT(WINAPI* DI8_Type)(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID * ppvOut, LPUNKNOWN punkOuter);
+	DI8_Type DI8Create_fn = (DI8_Type)GetProcAddress(gl_hOriginalDll, "DirectInput8Create");
 
 	// Debug
-	if (!D3DCreate8_fn)
+	if (!DI8Create_fn)
 	{
-		OutputDebugString("PROXYDLL: Pointer to original D3DCreate8 function not received ERROR ****\r\n");
+		OutputDebugString("PROXYDLL: Pointer to original DirectInput8Create function not received ERROR ****\r\n");
 		::ExitProcess(0); // exit the hard way
 	}
 
-	// Request pointer from Original Dll. 
-	IDirect3D8 *pIDirect3D8_orig = D3DCreate8_fn(SDKVersion);
+	HRESULT res = DI8Create_fn(hinst, dwVersion, riidltf, ppvOut, punkOuter);
 
-	// Create my IDirect3D8 object and store pointer to original object there.
-	// note: the object will delete itself once Ref count is zero (similar to COM objects)
-	gl_pmyIDirect3D8 = new myIDirect3D8(pIDirect3D8_orig);
+	gl_patcher.PatchCode();
 
-	gl_patcher.PatchResolution(NULL);
 	// Return pointer to hooking Object instead of "real one"
-	return (gl_pmyIDirect3D8);
+	return res;
 }
 
 void InitInstance(HANDLE hModule)
@@ -64,8 +58,6 @@ void InitInstance(HANDLE hModule)
 	// Initialisation
 	gl_hOriginalDll = NULL;
 	gl_hThisInstance = NULL;
-	gl_pmyIDirect3D8 = NULL;
-	gl_pmyIDirect3DDevice8 = NULL;
 
 	// Storing Instance handle into global var
 	gl_hThisInstance = (HINSTANCE)hModule;
@@ -77,19 +69,19 @@ void LoadOriginalDll(void)
 {
 	char buffer[MAX_PATH];
 
-	// Getting path to system dir and to d3d8.dll
+	// Getting path to system dir and to dll
 	::GetSystemDirectory(buffer, MAX_PATH);
 
 	// Append dll name
-	strcat_s(buffer, MAX_PATH, "\\d3d8.dll");
+	strcat_s(buffer, MAX_PATH, "\\dinput8.dll");
 
-	// try to load the system's d3d8.dll, if pointer empty
+	// try to load the system's dll, if pointer empty
 	if (!gl_hOriginalDll) gl_hOriginalDll = ::LoadLibrary(buffer);
 
 	// Debug
 	if (!gl_hOriginalDll)
 	{
-		OutputDebugString("PROXYDLL: Original d3d8.dll not loaded ERROR ****\r\n");
+		OutputDebugString("PROXYDLL: Original dinput8.dll not loaded ERROR ****\r\n");
 		::ExitProcess(0); // exit the hard way
 	}
 }
@@ -98,7 +90,7 @@ void ExitInstance()
 {
 	OutputDebugString("PROXYDLL: ExitInstance called.\r\n");
 
-	// Release the system's d3d8.dll
+	// Release the system's dll
 	if (gl_hOriginalDll)
 	{
 		::FreeLibrary(gl_hOriginalDll);

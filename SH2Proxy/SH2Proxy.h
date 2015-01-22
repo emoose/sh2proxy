@@ -1,8 +1,9 @@
 // proxydll.h
 #pragma once
+#include <dinput.h>
 
 // Exported function
-IDirect3D8* WINAPI Direct3DCreate8(UINT SDKVersion);
+HRESULT WINAPI DirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID * ppvOut, LPUNKNOWN punkOuter);
 
 // regular functions
 void InitInstance(HANDLE hModule);

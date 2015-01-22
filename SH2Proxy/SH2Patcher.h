@@ -24,11 +24,11 @@ private:
 
 	bool bExtraCreateLocalFix;
 
+	bool PatchResolution();
+
 public:
 	bool Init();
 	bool IsSH2();
-
-	bool PatchResolution(D3DPRESENT_PARAMETERS* pPresentationParameters);
 	bool PatchCode();
 };
 

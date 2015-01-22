@@ -184,7 +184,7 @@ bool SH2Patcher::Init()
 
 bool SH2Patcher::IsSH2()
 {
-	byte test[0x15];
+	BYTE test[0x15];
 	char* compare = "Silent_Hill_2_unique";
 	bool isSH2 = true;
 	if (this->baseAddr != (DWORD_PTR)0x400000)
@@ -205,8 +205,8 @@ bool SH2Patcher::IsSH2()
 
 bool SH2Patcher::PatchCode()
 {
-	byte nop = 0x90;
-	byte null = 0x0;
+	BYTE nop = 0x90;
+	BYTE null = 0x0;
 
 	// patches create window code to allow for custom height, x/y positions, window style and window title
 	BYTE windowedPatch[] =	  { 0x68,
@@ -306,10 +306,10 @@ bool SH2Patcher::PatchCode()
 	memcpy(windowedPatch + 0x1A, &gameTitleOffset, 4);
 
 	WriteProcessMemory(this->handle, (LPVOID)(0x4063CB), &windowedPatch, sizeof(windowedPatch) / sizeof(BYTE), NULL);
-	return true;
+	return this->PatchResolution();
 }
 
-bool SH2Patcher::PatchResolution(D3DPRESENT_PARAMETERS* pPresentationParameters)
+bool SH2Patcher::PatchResolution()
 {
 	int safeMode = 0;
 	int selectedRes = 1;
@@ -319,14 +319,6 @@ bool SH2Patcher::PatchResolution(D3DPRESENT_PARAMETERS* pPresentationParameters)
 	// code will loop on the first offset and fill in each of the screen resolutions (5 of them afaik) to be the same
 	int widthPatch[3] = { 0x8A1474, 0xA35498, 0xA36080 };
 	int heightPatch[3] = { 0x8A1478, 0xA3549C, 0xA36084 };
-	
-	if (pPresentationParameters)
-	{
-		// update the CreateDevice params
-		pPresentationParameters->BackBufferWidth = this->dwVideoWidth;
-		pPresentationParameters->BackBufferHeight = this->dwVideoHeight;
-		pPresentationParameters->Windowed = this->bVideoWindowed;
-	}
 
 	if (!this->IsSH2())
 		return false;
