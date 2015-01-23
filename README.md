@@ -1,16 +1,32 @@
 sh2proxy
 ========
 
-A simple D3D8 wrapper and SH2 patcher, with source code included.
+A patching DLL for Silent Hill 2 to help it run on modern PCs.
 
 Thanks to Michael Koch for his open source DX8 wrapper
 (http://www.codeguru.com/cpp/g-m/directx/directx8/article.php/c11453/Intercept-Calls-to-DirectX-with-a-Proxy-DLL.htm)
 
+Fixes
+-------
+Allows:
+- Custom resolutions
+- Windowed mode
+- Borderless window
+- Window positioning
+- Executable Arguments/parameters
+
+Fixes:
+- Disables Safe Mode
+- Improve transition speed (opening up inventory/map/etc)
+- Automatically set processor affinity to only use a single core
+- Create local.fix AA fix file if doesn't exist (thanks to angular graphics for the fix!)
+
+All of the above can be configured in sh2proxy.ini
 
 Install
 -------
 
-Binary download is available in the releases section (https://github.com/emoose/sh2proxy/releases), includes sh2proxy.ini, precompiled d3d8.dll and a matching sh2pc.exe for sh2proxy.
+Binary download is available in the releases section (https://github.com/emoose/sh2proxy/releases), includes sh2proxy.ini, precompiled DLL and a matching sh2pc.exe for sh2proxy.
 
 Visual C++ 2013 redistributable is required, download vcredist_x86.exe from
 
@@ -59,26 +75,7 @@ sh2pc.exe -w=2560 -h=1440 -f
 
 To run the game in fullscreen 2560x1440
 
-
-If no ini is found it'll run the game as default with all the fixes listed below enabled, parameters will still work fine though
-
-
-Fixes
--------
-Allows:
-- Custom resolutions
-- Windowed mode
-- Borderless window
-- Window positioning
-- Executable Arguments/parameters
-
-Fixes:
-- Disables Safe Mode
-- Improve transition speed (opening up inventory/map/etc)
-- Automatically set processor affinity to only use a single core
-- Create local.fix AA fix file if doesn't exist (thanks to angular graphics for the fix!)
-
-All of the above can be configured in sh2proxy.ini
+If no ini is found it'll run the game as default with all the fixes listed above enabled, parameters will still work fine though
 
 Example INI
 -------

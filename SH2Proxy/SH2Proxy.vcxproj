@@ -45,7 +45,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>d3d8</TargetName>
+    <TargetName>dinput8</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -82,8 +82,8 @@ copy "$(OutDir)*" "G:\SilentHill\SH2_\"</Command>
       <ModuleDefinitionFile>SH2Proxy.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>del K:\SilentHill\SH2\d3d8.*
-copy "$(OutDir)*" "K:\SilentHill\SH2\"</Command>
+      <Command>del G:\SilentHill\SH2_\dinput.*
+copy "$(OutDir)*" "G:\SilentHill\SH2_\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
