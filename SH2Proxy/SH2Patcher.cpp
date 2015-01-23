@@ -346,5 +346,10 @@ bool SH2Patcher::PatchResolution()
 		}
 	}
 
+	BYTE nopArray[] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+
+	if (this->bVideoWindowed)
+		WriteProcessMemory(this->handle, (LPVOID)(0x4F5F97), nopArray, 6, NULL); // todo: find out how dword_A35FA0 is set (this patches out a check for that dword)
+
 	return true;
 }
