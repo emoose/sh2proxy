@@ -1,11 +1,18 @@
 sh2proxy
 ========
 
-A simple D3D8 wrapper and SH2 patcher, with source code included.
+A simple D3D8 wrapper and SH2 (Directors Cut) patcher, with source code included.
 
 Thanks to Michael Koch for his open source DX8 wrapper
 (http://www.codeguru.com/cpp/g-m/directx/directx8/article.php/c11453/Intercept-Calls-to-DirectX-with-a-Proxy-DLL.htm)
 
+This repo contains code for the proxy, most users will want the download below.
+
+DOWNLOAD FROM THE RELEASES SECTION: https://github.com/emoose/sh2proxy/releases
+
+Experimental SweetFX version can be found at https://github.com/emoose/sh2proxy/issues/2#issuecomment-71128479
+
+Additional fix for white textures (credits to Sonne170, I'll add this into the next sh2proxy release, whenever that happens): https://github.com/emoose/sh2proxy/issues/4#issuecomment-76407335
 
 Install
 -------
