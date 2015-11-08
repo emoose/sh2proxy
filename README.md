@@ -104,6 +104,9 @@ Windowed = 1
 # (default 0)
 Borderless = 1
 
+# Force borderless even on fullscreen (Windows 10 Fix)
+ForceBorderless = 1
+
 # works with bordered windows too
 # (default 0)
 PositionX = 0

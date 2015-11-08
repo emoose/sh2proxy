@@ -13,6 +13,8 @@ private:
 	bool bVideoWindowed;
 
 	bool bWindowBorderless;
+	bool bForceWindowBorderless;
+
 	int dwWindowX;
 	int dwWindowY;
 

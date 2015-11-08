@@ -106,6 +106,7 @@ bool SH2Patcher::Init()
 	this->bVideoWindowed = (GetPrivateProfileInt("Video", "Windowed", 0, ".\\sh2proxy.ini") == 1);
 
 	this->bWindowBorderless = (GetPrivateProfileInt("Window", "Borderless", 0, ".\\sh2proxy.ini") == 1);
+	this->bForceWindowBorderless = (GetPrivateProfileInt("Window", "ForceBorderless", 0, ".\\sh2proxy.ini") == 1);
 	this->dwWindowX = GetPrivateProfileInt("Window", "PositionX", 0, ".\\sh2proxy.ini");
 	this->dwWindowY = GetPrivateProfileInt("Window", "PositionY", 0, ".\\sh2proxy.ini");
 
@@ -298,7 +299,7 @@ bool SH2Patcher::PatchCode()
 	memcpy(windowedPatch + 0xB, &this->dwWindowY, 4);
 	memcpy(windowedPatch + 0x10, &this->dwWindowX, 4);
 
-	if (this->bVideoWindowed && this->bWindowBorderless) // set CreateWindowExA exStyle param to 0x80000000 (WS_POPUP)
+	if ((this->bVideoWindowed && this->bWindowBorderless) || this->bForceWindowBorderless ) // set CreateWindowExA exStyle param to 0x80000000 (WS_POPUP)
 		windowedPatch[0x18] = 0x80;
 
 	// patch window code to show gameTitle above as window title
