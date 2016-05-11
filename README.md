@@ -1,6 +1,8 @@
 sh2proxy
 ========
 
+**sh2proxy is no longer under active development, I recommend you use ThirteenAG and Aero_'s Widescreen Fixes Pack instead (which includes the fixes from sh2proxy along with some others) as it's more actively supported:** https://thirteenag.github.io/wfp#sh2
+
 A simple D3D8 wrapper and SH2 (Directors Cut) patcher, with source code included.
 
 Thanks to Michael Koch for his open source DX8 wrapper
