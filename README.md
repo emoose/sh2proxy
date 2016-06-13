@@ -89,6 +89,12 @@ Fixes:
 
 All of the above can be configured in sh2proxy.ini
 
+OS X Support
+-------
+OS X does not export any API for reliably controlling thread affinity. Nevertheless, there is a workaround:
+1. Build and install [ThreadBinder](https://github.com/07151129/ThreadBinder) kernel extension.
+2. Patch wine using `wine_osx_affinity.patch`. It was tested with version 1.9.11, but should work with any reasonable modern one.
+
 Example INI
 -------
 <pre>
