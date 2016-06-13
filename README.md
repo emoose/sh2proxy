@@ -95,6 +95,9 @@ OS X does not export any API for reliably controlling thread affinity. Neverthel
 1. Build and install [ThreadBinder](https://github.com/07151129/ThreadBinder) kernel extension.
 2. Patch wine using `wine_osx_affinity.patch`. It was tested with version 1.9.11, but should work with any reasonable modern one.
 
+After this, the game's threads should be bound to a single processor. You can observe the result by looking at wine's CPU usage:
+it should never exceed 100%.
+
 Example INI
 -------
 <pre>
