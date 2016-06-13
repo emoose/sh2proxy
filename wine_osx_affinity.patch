@@ -1,5 +1,5 @@
 *** /tmp/wine-wine-1.9.11/server/thread.c	2016-05-27 16:40:02.000000000 +0200
---- ../server/thread.c	2016-06-13 01:58:52.000000000 +0200
+--- ../server/thread.c	2016-06-13 04:08:00.000000000 +0200
 ***************
 *** 38,43 ****
 --- 38,52 ----
@@ -45,11 +45,11 @@
 +             if (IOServiceOpen(service, mach_task_self(), 0, &conn) != KERN_SUCCESS)
 +                 fprintf(stderr, "Failed to open ThreadBinder IOService\n");
 + 
-+         uint64_t input[] = {thread_port, affinity};
++         uint64_t input[] = {thread_port, affinity > 0 ? affinity - 1 : affinity};
 +         uint64_t res = 0;
 +         uint32_t outCnt = 0;
 + 
-+         kern_return_t kret = IOConnectCallScalarMethod(conn, 0, input, 2, &res, &outCnt);
++         volatile kern_return_t kret = IOConnectCallScalarMethod(conn, 0, input, 2, &res, &outCnt);
 +         // fprintf(stderr, "binding 0x%x; kret: 0x%x\n", thread_port, kret);
 + 
 +         task_resume(proc_port);
